@@ -23,7 +23,13 @@ const circle = require('../src/circle');
 
 describe('4 - Implemente os casos de teste para a função `circle`', () => {
   it('Verifica se ao receber um raio, a função `circle` retorna um objeto contendo os valores esperados', () => {
-    fail('Teste vazio!');
+    expect(circle('a')).toBe(undefined);
+    expect(typeof circle(1)).toEqual('object');
+    expect(Object.keys(circle(1)).length).toEqual(3);
+    expect(circle()).toBe(undefined);
+    expect(Object.values(circle(2))[2]).toEqual(12.56);
+    expect(Object.values(circle(3))[1]).toEqual(28.259999999999998);
+    expect(circle(3)).toEqual({ radius: 3, area: 28.259999999999998, circumference: 18.84 });
     // ESCREVA SEUS TESTES ABAIXO:
     // Teste se circle retorna undefined, caso o parâmetro passado não seja um número.
     // Teste se circle retorna um objeto.
