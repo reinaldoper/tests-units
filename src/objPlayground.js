@@ -54,5 +54,4 @@ const arrayGenerator = (type, object) => {
   } return chave;
 };
 
-
 module.exports = { calculator, arrayGenerator };
