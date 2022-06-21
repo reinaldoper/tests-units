@@ -51,10 +51,10 @@ const createMenu = require('../src/restaurant');
   IMPORTANTE: FAÇA OS TESTES E PASSOS DE ACORDO COM A SEQUÊNCIA INDICADA NO README DO PROJETO!
 
 */
+const menu = createMenu({ food: { 'coxinha': 4, 'sopa': 5}, drink: { 'agua': 4, 'cerveja': 5} });
 
 describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
   it('Verifica se a função `createMenu` tem o comportamento esperado', () => {
-    fail('Teste vazio!');
     // TESTE 1: Verifique se função `createMenu()` retorna um objeto que possui a chave `fetchMenu`, a qual tem como valor uma função.
     // ```
     // const objetoRetornado = createMenu(); // Retorno: { fetchMenu: () => {}, ... }
@@ -127,5 +127,27 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ```
   
     // Agora faça o PASSO 4 no arquivo `src/restaurant.js`.
+  });
+  it(' Verifique se função `createMenu()` retorna um objeto que possui a chave `fetchMenu`, a qual tem como valor uma função.', () => {
+    expect(createMenu()).toHaveProperty('fetchMenu');
+  });
+  it('Verifique se objetoRetornado.consumption, após a criação do menu, retorna um array vazio.', () => {
+    expect(createMenu({ food: {}, drink: {} }).consumption).toEqual([]);
+  });
+  it('Verifique se, ao chamar uma função associada à chave `order` no objeto retornado', () => {
+    menu.order('coxinha');
+    expect(menu.consumption).toEqual(['coxinha']);
+  });
+  it('Verifique se, ao chamar uma função associada à chave `order` Retorno: [coxinha, agua, sopa]', () => {
+    menu.order('agua');
+    menu.order('sopa');
+    expect(menu.consumption).toEqual(['coxinha', 'agua', 'sopa']);
+  });
+  it('Verifique se a função `order` aceita que pedidos repetidos sejam acrescidos a `consumption`', () => {
+    menu.order('sopa');
+    expect(menu.consumption).toEqual(['coxinha', 'agua', 'sopa', 'sopa']);
+  });
+  it('Verifique se, ao chamar `objetoRetornado.pay()`, retorna-se a soma dos preços de tudo que foi pedido, conforme registrado em `objetoRetornado.consumption', () => {
+    expect(menu.pay()).toBeCloseTo(19.8);
   });
 });
